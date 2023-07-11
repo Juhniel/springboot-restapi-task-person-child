@@ -16,6 +16,12 @@ public class Person {
     private String name;
     private String wifeName;
 
+    public Person(String ssn, String name, String wifeName) {
+        this.ssn = ssn;
+        this.name = name;
+        this.wifeName = wifeName;
+    }
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
     @JsonManagedReference
     private List<Child> children;
