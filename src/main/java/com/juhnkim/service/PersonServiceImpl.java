@@ -32,6 +32,7 @@ public class PersonServiceImpl implements PersonService{
     public Person save(Person person) {
         personRepository.save(person);
         LOGGER.info("Saving person with SSN: {}", person.getSsn());
+
         return person;
     }
 
