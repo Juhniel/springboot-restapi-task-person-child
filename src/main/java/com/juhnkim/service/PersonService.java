@@ -11,7 +11,7 @@ public interface PersonService {
 
     List<Person> findAll();
 
-    void save(Person person);
+    Person save(Person person);
 
     Optional<Person> findPersonWithOldestChild();
 }

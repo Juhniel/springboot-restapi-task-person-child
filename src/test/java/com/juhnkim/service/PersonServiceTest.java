@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
@@ -52,9 +54,12 @@ public class PersonServiceTest {
 
         when(personRepository.save(person)).thenReturn(person);
 
-        Person result = personRepository.save(person);
+        Person result = personServiceImpl.save(person);
+
         assertNotNull(result);
         assertEquals("Should be 123","123", result.getSsn());
+
+        Mockito.verify(personRepository, Mockito.times(1)).save(person);
     }
 
 }
