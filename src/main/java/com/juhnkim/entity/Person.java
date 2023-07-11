@@ -16,6 +16,10 @@ public class Person {
     private String name;
     private String wifeName;
 
+    public Person() {
+
+    }
+
     public Person(String ssn, String name, String wifeName) {
         this.ssn = ssn;
         this.name = name;

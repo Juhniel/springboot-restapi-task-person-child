@@ -12,6 +12,10 @@ public class Child {
     private String name;
     private int age;
 
+    public Child() {
+
+    }
+
     public Child(String name, int age, Person person) {
         this.name = name;
         this.age = age;
