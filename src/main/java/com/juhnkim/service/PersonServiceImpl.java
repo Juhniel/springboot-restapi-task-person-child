@@ -25,19 +25,36 @@ public class PersonServiceImpl implements PersonService{
 
     @Override
     public List<Person> findAll() {
-        return personRepository.findAll();
+        try {
+            List<Person> personList = personRepository.findAll();
+            LOGGER.info("Retrieved {} persons", personList.size());
+            return personList;
+        } catch (Exception e) {
+            LOGGER.error("Failed to retrieve persons: ", e);
+            throw new RuntimeException("Unable to retrieve persons", e);
+        }
     }
 
     @Override
     public Person save(Person person) {
-        personRepository.save(person);
-        LOGGER.info("Saving person with SSN: {}", person.getSsn());
-
-        return person;
+        try {
+            Person savedPerson = personRepository.save(person);
+            LOGGER.info("Saved person with SSN: {}", savedPerson.getSsn());
+            return savedPerson;
+        } catch (Exception e) {
+            LOGGER.error("Failed to save person: ", e);
+            throw new RuntimeException("Unable to save person", e);
+        }
     }
 
-    @Override
     public Optional<Person> findPersonWithOldestChild() {
-        return personRepository.findPersonWithOldestChild();
+        try {
+            Optional<Person> person = personRepository.findPersonWithOldestChild();
+            LOGGER.info("Found person with oldest child. Person SSN: {}", person.get().getSsn());
+            return person;
+        } catch (Exception e) {
+            LOGGER.error("Failed to find person with oldest child: ", e);
+            throw new RuntimeException("Unable to find person with oldest child", e);
+        }
     }
 }
