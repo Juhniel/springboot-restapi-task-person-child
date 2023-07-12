@@ -1,0 +1,41 @@
+service: springboot-rest-api-person-child
+
+provider:
+  name: aws
+  runtime: java17
+  stage: dev
+  region: eu-north-1
+
+package:
+  artifact: target/springboot-restapi-task-0.0.1-SNAPSHOT.jar
+
+functions:
+  helloUser:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    environment:
+      MAIN_CLASS: com.juhnkim.Application
+      SPRING_CLOUD_FUNCTION_DEFINITION: findAll
+    events:
+        - http:
+            path: api/person
+            method: get
+
+  save:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    environment:
+      MAIN_CLASS: com.juhnkim.Application
+      SPRING_CLOUD_FUNCTION_DEFINITION: save
+    events:
+        - http:
+            path: api/person
+            method: post
+
+  oldestChild:
+    handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+    environment:
+      MAIN_CLASS: com.juhnkim.Application
+      SPRING_CLOUD_FUNCTION_DEFINITION: findOldestChild
+    events:
+        - http:
+            path: api/person/oldest
+            method: get
